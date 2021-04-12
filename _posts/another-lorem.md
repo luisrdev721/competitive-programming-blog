@@ -1,6 +1,6 @@
 ---
 title: Anoter lorem post
-date: 1618190118660
+date: 1618201918979
 description: Description here
 ---
 
@@ -13,9 +13,61 @@ Maecenas dictum tortor eu lectus auctor pharetra. Proin tincidunt dolor blandit 
 - or markdown
 
 ```cpp
-auto foo() -> bool {
-    auto bar = true;
-    return bar && bar;
+#include <iostream>
+using namespace std;
+
+template <typename T>
+using pointer = T*;
+
+template <typename T>
+struct node {
+  T value;
+  pointer<node> next;
+
+  node(T _value) : value {_value}, next {nullptr} {}
+};
+
+template <typename T>
+class queue {
+  size_t size;
+  pointer<node<T>> front, back;
+
+ public:
+  queue() : front {nullptr}, back {nullptr}, size {0} {}
+
+  auto push(T&& value) {
+    auto* node = new node {forward(value)};
+    if (empty()) { front = back = node; } 
+    else { back->next = node, back = node; }
+
+    ++size;
+  }
+
+  auto pop() -> void {
+    if (size == 0) { return; }
+    if (size == 1) { back = nullptr; }
+
+    auto* to_delete = front;
+
+    front = front->next;
+    delete to_delete;
+    --size;
+  }
+
+  auto empty() -> bool { return front == nullptr; };
+  auto front() -> T { return front->value; };
+  auto back() -> T { return front->value; };
+  auto size() -> size_t { return size; };
+
+  auto display() -> void {
+    while (auto i = front; i != nullptr; i = i->next) { cout << i->value << "->"; }
+    cout << endl;
+  };
+};
+
+auto main() -> int {
+  auto q = queue<int> {};
+  return 0;
 }
 ```
 

@@ -17,7 +17,7 @@ const Home: React.FC<IHomeProps> = ({ paths }) => {
             <h1>Competitive programming blog</h1>
             <ul>
                 {paths.map(({ title, slug }) => (
-                    <li>
+                    <li key={slug}>
                         <Link href={`/${slug}`}>
                             <a>{title}</a>
                         </Link>

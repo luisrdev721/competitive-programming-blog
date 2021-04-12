@@ -2,6 +2,7 @@ import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
 import marked from "marked"
+import {formatDistanceToNow, format} from 'date-fns'
 
 export const getPostSlugs = () => {
     const files = fs.readdirSync("_posts");
@@ -13,7 +14,7 @@ export const getPostSlugs = () => {
 export const getPostBySlug = (slug: string) => {
     const file = fs.readFileSync(path.join("_posts", `${slug}.md`)).toString();
     const { content, data } = matter(file);
-    const htmlString = marked(content);
+    const htmlString = marked.parse(content);
 
     return {
         data,
@@ -30,6 +31,10 @@ export const getPosts = (fields: string[]) => {
 export const getPost = (slug: string, fields: string[]) => {
     const { data, htmlString } = getPostBySlug(slug);
     const post = {};
+
+    data.date = formatDistanceToNow(1618201918979, {
+        addSuffix: true
+    })
 
     fields.forEach(field => {
         if(field === "slug") {

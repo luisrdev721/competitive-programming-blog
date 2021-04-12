@@ -32,7 +32,7 @@ export const getStaticProps: GetStaticProps = async ({ params: { slug } }) => {
 
 type TPost = {
     title: string,
-    date: number,
+    date: string,
     html: string,
     description: string
 }
@@ -50,7 +50,7 @@ const Post: React.FC<{ post: string }> = ({ post }) => {
                 </Head>
                 <Link href="/"><a>Go back</a></Link>
                 <h1>{title}</h1>
-                <pre>{date}</pre>
+                <p>{date}</p>
             </header>
             <hr/>
             <main>
