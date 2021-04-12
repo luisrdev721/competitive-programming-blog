@@ -10,7 +10,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-            <link rel="stylesheet" href="https://unpkg.com/sakura.css@1.3.1/css/sakura-dark.css" type="text/css" />
+        <link rel="stylesheet" href="https://unpkg.com/sakura.css@1.3.1/css/sakura-earthly.css" type="text/css" />
         </Head>
         <body>
           <Main />

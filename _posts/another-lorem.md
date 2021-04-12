@@ -1,6 +1,7 @@
 ---
 title: Anoter lorem post
 date: 1618190118660
+description: Description here
 ---
 
 ### Lorem h3 subtitle
@@ -14,7 +15,7 @@ Maecenas dictum tortor eu lectus auctor pharetra. Proin tincidunt dolor blandit 
 ```cpp
 auto foo() -> bool {
     auto bar = true;
-    return bar && bar;`
+    return bar && bar;
 }
 ```
 

@@ -1,27 +1,42 @@
-import { GetStaticPaths, GetStaticProps } from "next"
+import { GetStaticProps } from "next"
+import Link from "next/link"
+import Head from "next/head"
+import { getPosts } from "../utils/api"
 
-const Home = () => {
+interface IHomeProps {
+    paths: { title: string, slug: string }[]
+}
+
+const Home: React.FC<IHomeProps> = ({ paths }) => {
 
     return (
         <main>
-            <h1>Hello world</h1>
+            <Head>
+                <title>Competitive programming blog</title>
+            </Head>
+            <h1>Competitive programming blog</h1>
+            <ul>
+                {paths.map(({ title, slug }) => (
+                    <li>
+                        <Link href={`/${slug}`}>
+                            <a>{title}</a>
+                        </Link>
+                    </li>
+                ))}
+            </ul>
         </main>
     )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+
+    const paths = getPosts(["title", "slug"]);
+
     return {
-        props: {}
+        props: {
+            paths
+        }
     }
 }
-
-export const getStaticPaths: GetStaticPaths = async () => {
-    return {
-        paths: [],
-        fallback: false
-    }
-}
-
-
 
 export default Home
