@@ -63,7 +63,7 @@ const Post: React.FC<{ post: string }> = ({ post }) => {
                 <article dangerouslySetInnerHTML={{ __html: html }} />
             </main>
             <footer>
-                <p>Competitive programming blog. &copy; 2021</p>
+                <p>Competitive programming blog. &copy; 2021 <a href="https://github.com/luisrdev721">Luisrdev</a></p>
             </footer>
         </React.Fragment>
     )

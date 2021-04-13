@@ -8,7 +8,7 @@ github: https://github.com/luisrdev721
 
 A queue is an abstract data type that maintains the order in which elements were added to it, allowing the oldest elements to be removed from the front and new elements to be added to the rear. This is called a *First-In-First-Out* (FIFO) data structure because the first element added to the queue (i.e., the one that has been waiting the longest) is always the first one to be removed.
 
-![Queue data structure](https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Data_Queue.svg/1200px-Data_Queue.svg.png)
+![Queue data structure](https://www77.zippyshare.com/i/YA8vXUrN/24822/queue-figures.jpg)
 
 ## Basic operations
 A basic queue has the following operations:
@@ -53,8 +53,11 @@ class queue {
 ```cpp
 auto push(T&& value) {
     auto* node = new node {forward(value)};
-    if (empty()) { front = back = node; } 
-    else { back->next = node, back = node; }
+    if (empty()) {
+      front = back = node;
+    } else {
+      back->next = node, back = node;
+    }
 
     ++size;
 }
@@ -68,7 +71,7 @@ auto pop() -> void {
 
     auto* to_delete = front;
 
-    front = front->next;
+    front = front -> next;
     delete to_delete;
     --size;
 }
@@ -76,20 +79,33 @@ auto pop() -> void {
 
 #### Empty operation
 ```cpp
-auto empty() -> bool { return front == nullptr; };
+auto empty() -> bool {
+  return front == nullptr;
+};
 ```
 
 #### Front operation
 ```cpp
-auto front() -> T { return front->value; };
+auto front() -> T {
+  return front -> value;
+};
 ```
 
 #### Back operation
 ```cpp
-auto back() -> T { return front->value; };
+auto back() -> T {
+  return front -> value;
+};
 ```
 
 #### Size operation
 ```cpp
-auto size() -> size_t { return size; };
+auto size() -> size_t {
+  return size;
+};
 ```
+
+## Glosary
+- [template<>](https://en.cppreference.com/w/cpp/language/templates)
+- [auto](https://en.cppreference.com/w/cpp/language/auto)
+- [size_t](https://en.cppreference.com/w/cpp/types/size_t)
