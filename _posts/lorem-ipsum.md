@@ -1,7 +1,9 @@
 ---
 title: Lorem Ipsum post
-date: 1618201983311
+date: 2021-04-10
 description: Description here
+author: Luis Resendiz
+github: https://github.com/luisrdev721
 ---
 
 

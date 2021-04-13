@@ -2,7 +2,9 @@ import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
 import marked from "marked"
-import {formatDistanceToNow, format} from 'date-fns'
+import remark from "remark"
+import remarkHtml from "remark-html"
+import remarkPrism from "remark-prism";
 
 export const getPostSlugs = () => {
     const files = fs.readdirSync("_posts");
@@ -11,36 +13,40 @@ export const getPostSlugs = () => {
     return slugs;
 }
 
-export const getPostBySlug = (slug: string) => {
+export const getPostBySlug = async (slug: string) => {
     const file = fs.readFileSync(path.join("_posts", `${slug}.md`)).toString();
     const { content, data } = matter(file);
-    const htmlString = marked.parse(content);
-
+    const { contents } = await remark().use(remarkPrism).use(remarkHtml).process(content);
     return {
         data,
-        htmlString
+        contents
     }
 }
 
-export const getPosts = (fields: string[]) => {
+export const getPosts = async (fields: string[]) => {
     const slugs = getPostSlugs();
-    const posts = slugs.map(slug => getPost(slug, fields));
+    const promisses = slugs.map(slug => getPost(slug, fields));
+
+    const result = await Promise.allSettled(promisses);
+    const posts = result.map(res => {
+        if(res.status == "fulfilled") {
+            return res.value
+        }
+    });
+    
     return posts;
 }
 
-export const getPost = (slug: string, fields: string[]) => {
-    const { data, htmlString } = getPostBySlug(slug);
-    const post = {};
 
-    data.date = formatDistanceToNow(1618201918979, {
-        addSuffix: true
-    })
+export const getPost = async (slug: string, fields: string[]) => {
+    const { data, contents } = await getPostBySlug(slug);
+    const post = {};
 
     fields.forEach(field => {
         if(field === "slug") {
             post["slug"] = slug;
-        }else if(field === "html") {
-            post["html"] = htmlString
+        } else if(field === "html") {
+            post["html"] = contents;
         } else if(data[field]) {
             post[field] = data[field];
         }

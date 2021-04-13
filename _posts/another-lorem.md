@@ -1,7 +1,9 @@
 ---
 title: Anoter lorem post
-date: 1618201918979
+date: 2021-04-11
 description: Description here
+author: Luis Resendiz
+github: https://github.com/luisrdev721
 ---
 
 ### Lorem h3 subtitle
@@ -60,7 +62,7 @@ class queue {
   auto size() -> size_t { return size; };
 
   auto display() -> void {
-    while (auto i = front; i != nullptr; i = i->next) { cout << i->value << "->"; }
+    for (auto i = front; i != nullptr; i = i->next) { cout << i->value << "->"; }
     cout << endl;
   };
 };
